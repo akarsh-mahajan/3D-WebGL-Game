@@ -1,12 +1,4 @@
-/* 
-***************************************
-2017A7PS0145P  Aniruddha Mahajan
-2017A7PS0162P  Shreyas Srikrishna
-***************************************
-*/ 
-
-
-/*This containter contains the game's elements - plane, sky, clouds 
+ /*This containter contains the game's elements - plane, sky, clouds 
 id value for this is = "mainScene"
 this can be accessed in game.js using document.getElementById()*/
 .mainScene {
