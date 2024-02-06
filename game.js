@@ -475,7 +475,7 @@ function updateAircraft(){
   perspCam.position.y += (aircraft.mesh.position.y - perspCam.position.y)*dT*controller.cameraSensivity;
   //increase the collision speed/displacement parameters with the passage of every animation frame.
   controller.aircraftCollisionXSpeed += (0-controller.aircraftCollisionXSpeed)*dT * 0.03;
-  controller.aircraftCollisionXDisplacement += (0-controller.aircraftCollisionXDisplacement)*dT *0.2;
+  controller.aircraftCollisionXDisplacement += (0-controller.aircraftCollisionXDisplacement)*dT*(WIDTH/15000);
   controller.aircraftCollisionYSpeed += (0-controller.aircraftCollisionYSpeed)*dT * 0.03;
   controller.aircraftCollisionYSpeed += (0-controller.aircraftCollisionYSpeed)*dT *0.01;
 }
