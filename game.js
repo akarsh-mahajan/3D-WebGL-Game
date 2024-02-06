@@ -453,7 +453,7 @@ function updateAircraft(){
 
   //calculate the aircraft displacement along the y direction when mouse is moved vertically
   var targetY = transformValue(currMousePtrLoc.y,-.75,.75, controller.aircraftDefaultHeight-controller.aircraftAmplitudeHt, controller.aircraftDefaultHeight+controller.aircraftAmplitudeHt);
-  controller.aircraftCollisionYSpeed += controller.aircraftCollisionYSpeed;
+  // controller.aircraftCollisionYSpeed += controller.aircraftCollisionYSpeed;
   targetY += controller.aircraftCollisionYSpeed;
 
   //displace the aircraft based on mouse movement. The factor dT is multiplied here because the faster
@@ -475,7 +475,7 @@ function updateAircraft(){
   perspCam.position.y += (aircraft.mesh.position.y - perspCam.position.y)*dT*controller.cameraSensivity;
   //increase the collision speed/displacement parameters with the passage of every animation frame.
   controller.aircraftCollisionXSpeed += (0-controller.aircraftCollisionXSpeed)*dT * 0.03;
-  controller.aircraftCollisionXDisplacement += (0-controller.aircraftCollisionXDisplacement)*dT *0.01;
+  controller.aircraftCollisionXDisplacement += (0-controller.aircraftCollisionXDisplacement)*dT *0.2;
   controller.aircraftCollisionYSpeed += (0-controller.aircraftCollisionYSpeed)*dT * 0.03;
   controller.aircraftCollisionYSpeed += (0-controller.aircraftCollisionYSpeed)*dT *0.01;
 }
@@ -678,9 +678,9 @@ MeteorsHolder.prototype.rotateMeteors = function(){
 
       meteorsPool.unshift(this.meteorsInUse.splice(i,1)[0]);
       this.mesh.remove(meteor.mesh);
-      controller.aircraftCollisionXSpeed = 100 * diff_position.x / diff;
+      controller.aircraftCollisionXSpeed = 100* diff_position.x / diff;
       controller.aircraftCollisionYSpeed = 100 * diff_position.y / diff;
-      ambLight.intensity = 2;
+      ambLight.intensity = 5;
       var meteor_planeSound = new Audio('sounds/rockBreaking.wav');
       meteor_planeSound.play();
       meteor_planeSound.volume = 1;
@@ -893,6 +893,12 @@ function increaseHealth(){
 function decreaseHealth(){
   controller.health -= controller.healthLossByMeteor;
   controller.health = Math.max(0, controller.health);
+  if (controller.health <1){
+    controller.stateOfGame = "gameIsOver";
+    var gOver = new Audio("sounds/gameOver.mp3");
+    gOver.play();
+    gOver.volume = 1;
+  }
 }
 
 /**
@@ -975,6 +981,7 @@ function init(event){
 window.addEventListener('load', init, false);
 
 
+
 /* This function get executed at the beginning of each animation frame. 
    In this function all objects (such as jewles, aircraft etc) gets updated
     depending upon the current state of the game. */
@@ -1048,7 +1055,7 @@ function loop(){
 
     }
   }else if (controller.stateOfGame=="awaitingGameRestart"){
-
+    
   }
 
   // updating aircraft rotation.
